@@ -1,0 +1,9 @@
+# Plaatshouder voor afbeeldingen
+#
+# Voeg hier de volgende bestanden toe:
+#   raoul.jpg  — portretfoto Raoul Ganga
+#   louis.jpg  — portretfoto Louis Collins
+#   samen.jpg  — gezamenlijke teamfoto
+#
+# De website toont een fallback-placeholder zolang de echte
+# foto's nog niet aanwezig zijn.

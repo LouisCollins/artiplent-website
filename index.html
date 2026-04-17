@@ -1,0 +1,601 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Artiplent | Digitale Weerbaarheid & AI Training</title>
+  <meta name="description" content="Artiplent helpt mensen en organisaties om weerbaar, vaardig en bewust te worden in een wereld vol digitale dreigingen en AI." />
+  <meta name="keywords" content="Digitale Weerbaarheid, AI Training, Artiplent, Cyberveiligheid, MBO, Jongeren, Organisaties" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary:       '#1e40af',
+            'primary-hover': '#1e3a8a',
+            accent:        '#ea580c',
+            'accent-hover':'#c2410c',
+            background:    '#f8fafc',
+            surface:       '#ffffff',
+            border:        '#cbd5e1',
+            'text-main':   '#0f172a',
+            'text-muted':  '#334155',
+          },
+          fontFamily: {
+            sans:  ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+            serif: ['Playfair Display', 'ui-serif', 'Georgia', 'serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Inter', ui-sans-serif, system-ui, sans-serif; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+    /* ── Scroll-triggered animations ── */
+    .fade-up   { opacity: 0; transform: translateY(20px); transition: opacity .5s ease, transform .5s ease; }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    .scale-in  { opacity: 0; transform: scale(.95); transition: opacity .4s ease, transform .4s ease; }
+    .scale-in.visible { opacity: 1; transform: scale(1); }
+
+    .slide-left { opacity: 0; transform: translateX(-20px); transition: opacity .5s ease, transform .5s ease; }
+    .slide-left.visible { opacity: 1; transform: translateX(0); }
+
+    .delay-1 { transition-delay: .1s; }
+    .delay-2 { transition-delay: .2s; }
+    .delay-3 { transition-delay: .3s; }
+
+    /* ── Hero entrance ── */
+    .hero-animate { opacity: 0; transform: translateY(20px); animation: heroIn .5s ease .1s forwards; }
+    @keyframes heroIn { to { opacity: 1; transform: translateY(0); } }
+
+    @media (prefers-reduced-motion: reduce) {
+      .fade-up, .scale-in, .slide-left { opacity:1; transform:none; transition:none; }
+      .hero-animate { animation:none; opacity:1; transform:none; }
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-background text-text-main selection:bg-primary/20 selection:text-primary">
+
+<!-- ════════════════════════════════════════════
+     NAVIGATIE
+════════════════════════════════════════════ -->
+<nav class="fixed w-full bg-surface/95 backdrop-blur-md z-50 border-b border-border">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between h-20 items-center">
+
+      <!-- Logo -->
+      <div class="flex-shrink-0 flex items-center gap-2">
+        <div class="w-8 h-8 rounded bg-primary flex items-center justify-center shadow-sm">
+          <div class="w-3 h-3 bg-surface rounded-full"></div>
+        </div>
+        <span class="font-serif font-bold text-2xl tracking-tight text-primary">Artiplent</span>
+      </div>
+
+      <!-- Desktop menu -->
+      <div class="hidden md:flex space-x-8 items-center">
+        <a href="#over-ons"    class="text-text-muted hover:text-primary hover:underline font-medium px-2 py-1 rounded transition-all">Over ons</a>
+        <a href="#wat-we-doen" class="text-text-muted hover:text-primary hover:underline font-medium px-2 py-1 rounded transition-all">Wat we doen</a>
+        <a href="#trainingen"  class="text-text-muted hover:text-primary hover:underline font-medium px-2 py-1 rounded transition-all">Trainingen</a>
+        <a href="#advies"      class="text-text-muted hover:text-primary hover:underline font-medium px-2 py-1 rounded transition-all">Advies</a>
+        <a href="#contact"     class="bg-accent hover:bg-accent-hover text-white px-6 py-2.5 rounded-lg text-sm font-medium transition-all border-2 border-transparent hover:border-accent-hover shadow-sm hover:shadow-md">
+          Contact
+        </a>
+      </div>
+
+      <!-- Hamburger -->
+      <div class="md:hidden flex items-center">
+        <button id="menu-toggle" class="text-text-muted hover:text-primary rounded p-1" aria-label="Menu openen">
+          <!-- Hamburger icon -->
+          <svg id="icon-open" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+          <!-- Close icon -->
+          <svg id="icon-close" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" class="hidden">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="md:hidden hidden bg-surface border-b border-border px-4 pt-2 pb-6 space-y-2 shadow-lg">
+    <a href="#over-ons"    class="block px-3 py-3 text-base font-medium text-text-muted hover:text-primary hover:bg-background rounded-md">Over ons</a>
+    <a href="#wat-we-doen" class="block px-3 py-3 text-base font-medium text-text-muted hover:text-primary hover:bg-background rounded-md">Wat we doen</a>
+    <a href="#trainingen"  class="block px-3 py-3 text-base font-medium text-text-muted hover:text-primary hover:bg-background rounded-md">Trainingen</a>
+    <a href="#advies"      class="block px-3 py-3 text-base font-medium text-text-muted hover:text-primary hover:bg-background rounded-md">Advies</a>
+    <a href="#contact"     class="block px-3 py-3 mt-4 text-base font-medium text-center text-white bg-accent hover:bg-accent-hover rounded-lg border-2 border-transparent">Contact</a>
+  </div>
+</nav>
+
+<main>
+
+<!-- ════════════════════════════════════════════
+     HERO
+════════════════════════════════════════════ -->
+<section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden" style="background: linear-gradient(to bottom, #e0f2fe, #f8fafc);">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <div class="text-center max-w-4xl mx-auto hero-animate">
+      <span class="inline-block py-1.5 px-4 rounded-full bg-white border border-border text-primary text-sm font-semibold tracking-wide mb-8 shadow-sm">
+        Digitale weerbaarheid &amp; AI
+      </span>
+      <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold text-text-main tracking-tight leading-tight mb-8">
+        Mensen en organisaties<br class="hidden md:block" />
+        <span class="text-primary">sterker in een digitale wereld.</span>
+      </h1>
+      <p class="text-xl text-text-muted mb-10 max-w-2xl mx-auto leading-relaxed">
+        Artiplent helpt mensen en organisaties om weerbaar, vaardig en bewust te worden in een wereld vol digitale dreigingen en AI.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="#contact" class="inline-flex items-center justify-center gap-2 bg-accent hover:bg-accent-hover text-white px-8 py-4 rounded-xl text-lg font-medium transition-all border-2 border-transparent hover:border-accent-hover shadow-sm hover:shadow-md">
+          Neem contact op
+          <!-- ArrowRight -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        </a>
+        <a href="#trainingen" class="inline-flex items-center justify-center gap-2 bg-surface text-primary border-2 border-primary hover:bg-blue-50 px-8 py-4 rounded-xl text-lg font-medium transition-all shadow-sm hover:shadow-md">
+          Bekijk trainingen
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     OVER ONS
+════════════════════════════════════════════ -->
+<section id="over-ons" class="py-24 bg-background overflow-hidden relative">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <div class="flex flex-col lg:flex-row gap-16 items-center">
+
+      <!-- Links: tekst + personen -->
+      <div class="lg:w-1/2">
+        <h2 class="text-3xl md:text-4xl font-bold text-text-main mb-6">Over ons</h2>
+        <p class="text-xl text-text-muted mb-8 leading-relaxed">
+          Artiplent bestaat uit twee bevlogen professionals die elkaar aanvullen met technische expertise en een mensgerichte aanpak.
+        </p>
+
+        <div class="space-y-8">
+
+          <!-- Raoul -->
+          <div class="slide-left flex gap-4">
+            <div class="flex-shrink-0 mt-1">
+              <div class="w-10 h-10 rounded-full bg-blue-50 border border-blue-100 overflow-hidden flex items-center justify-center">
+                <img src="images/raoul.jpg" alt="Raoul Ganga" class="w-full h-full object-cover"
+                     onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
+                <svg style="display:none" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="#1e40af" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+              </div>
+            </div>
+            <div>
+              <h3 class="text-xl font-semibold text-text-main mb-2">Raoul Ganga MSc — Projectmanager &amp; Trainer</h3>
+              <p class="text-text-muted leading-relaxed">Communiceert op verschillende niveaus — van jongeren in het praktijkonderwijs tot directies en beleidsmakers. Achtergrond in sociaal werk en projectmanagement.</p>
+            </div>
+          </div>
+
+          <!-- Louis -->
+          <div class="slide-left delay-1 flex gap-4">
+            <div class="flex-shrink-0 mt-1">
+              <div class="w-10 h-10 rounded-full bg-blue-50 border border-blue-100 overflow-hidden flex items-center justify-center">
+                <img src="images/louis.jpg" alt="Louis Collins" class="w-full h-full object-cover"
+                     onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
+                <svg style="display:none" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="#1e40af" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+              </div>
+            </div>
+            <div>
+              <h3 class="text-xl font-semibold text-text-main mb-2">Louis Collins MSc — AI &amp; Data Science &amp; Trainer</h3>
+              <p class="text-text-muted leading-relaxed">Gespecialiseerd in AI en data science. Ontwikkelt trainingen en advies, en geeft zelf ook trainingen aan uiteenlopende doelgroepen.</p>
+            </div>
+          </div>
+
+          <!-- Samen -->
+          <div class="slide-left delay-2 flex gap-4">
+            <div class="flex-shrink-0 mt-1">
+              <div class="w-8 h-8 rounded-full bg-blue-50 border border-blue-100 flex items-center justify-center">
+                <!-- CheckCircle -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="#1e40af" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              </div>
+            </div>
+            <div>
+              <h3 class="text-xl font-semibold text-text-main mb-2">Samen aanvullend</h3>
+              <p class="text-text-muted leading-relaxed">Technische expertise gecombineerd met een mensgerichte aanpak — voor een compleet en gedegen aanbod.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Rechts: teamfoto -->
+      <div class="lg:w-1/2 w-full">
+        <div class="bg-surface border border-border p-8 rounded-3xl shadow-sm">
+          <div class="aspect-square rounded-2xl overflow-hidden relative bg-background border border-border">
+            <img src="images/samen.jpg" alt="Raoul Ganga en Louis Collins — Artiplent team"
+                 class="w-full h-full object-cover"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.removeProperty('display');" />
+            <!-- Fallback placeholder -->
+            <div style="display:none" class="absolute inset-0 flex items-center justify-center text-center p-8">
+              <div>
+                <div class="w-20 h-20 mx-auto bg-blue-50 border border-blue-100 rounded-2xl flex items-center justify-center mb-6 shadow-sm">
+                  <!-- Users icon -->
+                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="none" viewBox="0 0 24 24" stroke="#1e40af" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                </div>
+                <h4 class="text-2xl font-serif font-bold text-text-main mb-2">Ons team</h4>
+                <p class="text-text-muted text-sm">Foto: images/samen.jpg</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     WAT WE DOEN
+════════════════════════════════════════════ -->
+<section id="wat-we-doen" class="py-24 bg-surface border-t border-border">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold text-text-main mb-4">Wat we doen</h2>
+      <p class="text-lg text-text-muted">
+        Artiplent helpt mensen én organisaties. Altijd maatwerk, altijd afgestemd op uw situatie.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+
+      <!-- Trainingen -->
+      <div class="fade-up bg-surface rounded-2xl p-8 border border-border shadow-sm hover:shadow-md transition-all group">
+        <div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center border border-blue-100 mb-6 group-hover:scale-105 transition-transform">
+          <!-- BookOpen icon -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="#1e40af" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+        </div>
+        <h3 class="text-xl font-semibold text-text-main mb-3">Trainingen</h3>
+        <p class="text-text-muted leading-relaxed">
+          Praktische trainingen op het gebied van digitale weerbaarheid en AI. Altijd maatwerk, afgestemd op de doelgroep en het niveau.
+        </p>
+        <a href="#trainingen" class="inline-flex items-center gap-1 mt-4 text-primary font-medium hover:underline text-sm transition-colors">
+          Bekijk trainingen
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        </a>
+      </div>
+
+      <!-- Advies -->
+      <div class="fade-up delay-1 bg-surface rounded-2xl p-8 border border-border shadow-sm hover:shadow-md transition-all group">
+        <div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center border border-blue-100 mb-6 group-hover:scale-105 transition-transform">
+          <!-- Lightbulb icon -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="#1e40af" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+        </div>
+        <h3 class="text-xl font-semibold text-text-main mb-3">Advies</h3>
+        <p class="text-text-muted leading-relaxed">
+          Strategisch advies rondom AI en digitalisering. Van een eerste scan tot volledige implementatiebegeleiding. Altijd maatwerk.
+        </p>
+        <a href="#advies" class="inline-flex items-center gap-1 mt-4 text-primary font-medium hover:underline text-sm transition-colors">
+          Bekijk adviesdiensten
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     TRAININGEN
+════════════════════════════════════════════ -->
+<section id="trainingen" class="py-24 bg-background">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col lg:flex-row gap-16 items-center">
+
+      <!-- Links -->
+      <div class="lg:w-1/3">
+        <h2 class="text-3xl md:text-4xl font-bold text-text-main mb-6">Trainingen</h2>
+        <p class="text-lg text-text-muted mb-8 leading-relaxed">
+          Praktische trainingen voor jongeren, medewerkers en starters. Bewustwording en concrete vaardigheden — altijd maatwerk.
+        </p>
+        <a href="#contact" class="inline-flex items-center gap-2 text-primary font-semibold hover:text-primary-hover hover:underline rounded px-1 transition-colors">
+          Vraag een training aan
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        </a>
+      </div>
+
+      <!-- Rechts: trainingen grid -->
+      <div class="lg:w-2/3">
+        <div class="grid sm:grid-cols-2 gap-8 relative">
+          <!-- Connecting lines -->
+          <div class="hidden sm:block absolute top-1/2 left-0 w-full h-px bg-border -translate-y-1/2 z-0"></div>
+          <div class="hidden sm:block absolute top-0 left-1/2 w-px h-full bg-border -translate-x-1/2 z-0"></div>
+
+          <!-- Training 1: Digitale Weerbaarheid -->
+          <div class="scale-in bg-surface p-8 rounded-2xl border border-border shadow-sm relative z-10">
+            <div class="w-12 h-12 bg-blue-50 border border-blue-100 rounded-full flex items-center justify-center mb-6">
+              <!-- ShieldCheck icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="#1e40af" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+            </div>
+            <h3 class="text-xl font-semibold text-text-main mb-3 flex items-center gap-3 flex-wrap">
+              <span class="text-sm font-bold text-accent bg-orange-50 px-2 py-1 rounded border border-orange-100">2 dagen · 2×4 uur</span>
+            </h3>
+            <h3 class="text-xl font-semibold text-text-main mb-2">Digitale Weerbaarheid</h3>
+            <p class="text-text-muted">
+              <span class="font-medium">Doelgroep:</span> Jongeren niveau 1–4
+            </p>
+          </div>
+
+          <!-- Training 2: AI Vaardig Worden -->
+          <div class="scale-in delay-1 bg-surface p-8 rounded-2xl border border-border shadow-sm relative z-10">
+            <div class="w-12 h-12 bg-blue-50 border border-blue-100 rounded-full flex items-center justify-center mb-6">
+              <!-- BrainCircuit / CPU icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="#1e40af" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path stroke-linecap="round" stroke-linejoin="round" d="M9 9h6M9 12h6M9 15h4M4 9H2M4 12H2M4 15H2M20 9h2M20 12h2M20 15h2M9 4V2M12 4V2M15 4V2M9 22v-2M12 22v-2M15 22v-2"/></svg>
+            </div>
+            <h3 class="text-xl font-semibold text-text-main mb-3 flex items-center gap-3 flex-wrap">
+              <span class="text-sm font-bold text-accent bg-orange-50 px-2 py-1 rounded border border-orange-100">Halve dag · 3 uur</span>
+            </h3>
+            <h3 class="text-xl font-semibold text-text-main mb-2">AI Vaardig Worden</h3>
+            <p class="text-text-muted">
+              <span class="font-medium">Doelgroep:</span> Jongeren, Medewerkers
+            </p>
+          </div>
+
+          <!-- Training 3: Digitaal Weerbaar op het Werk -->
+          <div class="scale-in delay-2 bg-surface p-8 rounded-2xl border border-border shadow-sm relative z-10">
+            <div class="w-12 h-12 bg-blue-50 border border-blue-100 rounded-full flex items-center justify-center mb-6">
+              <!-- Briefcase icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="#1e40af" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            </div>
+            <h3 class="text-xl font-semibold text-text-main mb-3 flex items-center gap-3 flex-wrap">
+              <span class="text-sm font-bold text-accent bg-orange-50 px-2 py-1 rounded border border-orange-100">Halve dag · 3 uur</span>
+            </h3>
+            <h3 class="text-xl font-semibold text-text-main mb-2">Digitaal Weerbaar op het Werk</h3>
+            <p class="text-text-muted">
+              <span class="font-medium">Doelgroep:</span> Starters, MBO/HBO
+            </p>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     ADVIES
+════════════════════════════════════════════ -->
+<section id="advies" class="py-24 bg-surface border-y border-border">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold text-text-main mb-4">Advies</h2>
+      <p class="text-lg text-text-muted">
+        Strategisch en praktisch advies om uw organisatie klaar te maken voor de digitale toekomst.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+
+      <!-- AI-scan -->
+      <div class="fade-up text-center p-8 rounded-2xl bg-background border border-border shadow-sm">
+        <div class="w-16 h-16 mx-auto bg-white border border-border rounded-2xl flex items-center justify-center mb-6 shadow-sm">
+          <!-- Search icon -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="#1e40af" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+        </div>
+        <div class="text-2xl font-bold text-text-main mb-2">AI-scan</div>
+        <h3 class="text-base font-semibold text-primary mb-3">Inzicht in uw situatie</h3>
+        <p class="text-text-muted text-sm leading-relaxed">Wij brengen in kaart waar AI kansen biedt binnen uw organisatie.</p>
+      </div>
+
+      <!-- AI-beleid samen maken -->
+      <div class="fade-up delay-1 text-center p-8 rounded-2xl bg-background border border-border shadow-sm">
+        <div class="w-16 h-16 mx-auto bg-white border border-border rounded-2xl flex items-center justify-center mb-6 shadow-sm">
+          <!-- FileText icon -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="#1e40af" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+        </div>
+        <div class="text-2xl font-bold text-text-main mb-2">AI-beleid</div>
+        <h3 class="text-base font-semibold text-primary mb-3">Samen maken</h3>
+        <p class="text-text-muted text-sm leading-relaxed">Wij helpen bij het opstellen van een gedragen AI-beleid dat past bij uw organisatie.</p>
+      </div>
+
+      <!-- Implementatiebegeleiding -->
+      <div class="fade-up delay-2 text-center p-8 rounded-2xl bg-background border border-border shadow-sm">
+        <div class="w-16 h-16 mx-auto bg-white border border-border rounded-2xl flex items-center justify-center mb-6 shadow-sm">
+          <!-- Bolt/Zap icon -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="#1e40af" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+        </div>
+        <div class="text-2xl font-bold text-text-main mb-2">Implementatie</div>
+        <h3 class="text-base font-semibold text-primary mb-3">Begeleiding op maat</h3>
+        <p class="text-text-muted text-sm leading-relaxed">Stap-voor-stap begeleiding bij de invoering van AI en digitale tools in uw organisatie.</p>
+      </div>
+
+      <!-- Maatwerk -->
+      <div class="fade-up delay-3 text-center p-8 rounded-2xl bg-background border border-border shadow-sm">
+        <div class="w-16 h-16 mx-auto bg-white border border-border rounded-2xl flex items-center justify-center mb-6 shadow-sm">
+          <!-- Sliders icon -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="#1e40af" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>
+        </div>
+        <div class="text-2xl font-bold text-text-main mb-2">Maatwerk</div>
+        <h3 class="text-base font-semibold text-primary mb-3">Uw specifieke vraagstuk</h3>
+        <p class="text-text-muted text-sm leading-relaxed">Een specifieke uitdaging? Wij denken graag mee over een aanpak die bij u past.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     CONTACT
+════════════════════════════════════════════ -->
+<section id="contact" class="py-24 bg-surface relative overflow-hidden border-t border-border">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <div class="bg-gradient-to-br from-blue-50 to-background rounded-3xl p-8 md:p-16 shadow-sm border border-border relative">
+
+      <div class="flex flex-col lg:flex-row gap-12 items-center relative z-10">
+
+        <!-- Links -->
+        <div class="lg:w-1/2">
+          <h2 class="text-3xl md:text-5xl font-bold text-text-main mb-6 leading-tight">
+            Neem contact op
+          </h2>
+          <p class="text-text-muted text-lg mb-8 leading-relaxed">
+            Vrijblijvend kennismaken — wij reageren binnen één werkdag.
+          </p>
+
+          <a href="mailto:artiplent@proton.me"
+             class="inline-flex items-center gap-4 text-text-main font-medium mb-4 bg-white p-4 rounded-xl border border-border shadow-sm hover:shadow-md transition-all">
+            <!-- Mail icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="#1e40af" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            <span>artiplent@proton.me</span>
+          </a>
+        </div>
+
+        <!-- Rechts: info box (geen formulier) -->
+        <div class="lg:w-1/2 w-full">
+          <div class="bg-surface rounded-2xl p-8 shadow-md border border-border">
+            <h3 class="text-2xl font-bold text-text-main mb-6">Veilig bereikbaar</h3>
+
+            <div class="space-y-6">
+
+              <!-- Proton Mail -->
+              <div class="flex items-start gap-4">
+                <div class="flex-shrink-0 w-10 h-10 bg-blue-50 border border-blue-100 rounded-xl flex items-center justify-center">
+                  <!-- Lock icon -->
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="#1e40af" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                </div>
+                <div>
+                  <h4 class="font-semibold text-text-main mb-1">End-to-end versleuteld via Proton Mail</h4>
+                  <p class="text-text-muted text-sm">Uw bericht is volledig privé en beveiligd van verzending tot ontvangst.</p>
+                </div>
+              </div>
+
+              <!-- Reactietijd -->
+              <div class="flex items-start gap-4">
+                <div class="flex-shrink-0 w-10 h-10 bg-blue-50 border border-blue-100 rounded-xl flex items-center justify-center">
+                  <!-- Clock icon -->
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="#1e40af" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                </div>
+                <div>
+                  <h4 class="font-semibold text-text-main mb-1">Reactie binnen één werkdag</h4>
+                  <p class="text-text-muted text-sm">Wij plannen graag een vrijblijvend kennismakingsgesprek in.</p>
+                </div>
+              </div>
+
+              <!-- CTA button -->
+              <a href="mailto:artiplent@proton.me"
+                 class="w-full bg-accent hover:bg-accent-hover text-white font-medium py-3 px-4 rounded-lg transition-all border-2 border-transparent hover:border-accent-hover shadow-sm hover:shadow-md flex justify-center items-center gap-2">
+                Stuur een e-mail
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+              </a>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ════════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════════ -->
+<footer class="bg-background border-t border-border pt-16 pb-8">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+
+      <!-- Logo + omschrijving -->
+      <div class="md:col-span-2">
+        <div class="flex items-center gap-2 mb-6">
+          <div class="w-8 h-8 rounded bg-primary flex items-center justify-center shadow-sm">
+            <div class="w-3 h-3 bg-surface rounded-full"></div>
+          </div>
+          <span class="font-serif font-bold text-2xl tracking-tight text-primary">Artiplent</span>
+        </div>
+        <p class="text-text-muted max-w-md mb-6 leading-relaxed">
+          Artiplent helpt mensen en organisaties om weerbaar, vaardig en bewust te worden in een wereld vol digitale dreigingen en AI.
+        </p>
+        <div class="flex gap-4">
+          <a href="mailto:artiplent@proton.me"
+             class="w-10 h-10 rounded-full bg-surface border border-border flex items-center justify-center text-text-muted hover:bg-primary hover:text-white hover:border-primary transition-all shadow-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            <span class="sr-only">E-mail</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Trainingen links -->
+      <div>
+        <h4 class="font-semibold text-text-main mb-4">Trainingen</h4>
+        <ul class="space-y-3">
+          <li><a href="#trainingen" class="text-text-muted hover:text-primary hover:underline transition-colors">Digitale Weerbaarheid</a></li>
+          <li><a href="#trainingen" class="text-text-muted hover:text-primary hover:underline transition-colors">AI Vaardig Worden</a></li>
+          <li><a href="#trainingen" class="text-text-muted hover:text-primary hover:underline transition-colors">Digitaal Weerbaar op het Werk</a></li>
+        </ul>
+      </div>
+
+      <!-- Advies links -->
+      <div>
+        <h4 class="font-semibold text-text-main mb-4">Advies</h4>
+        <ul class="space-y-3">
+          <li><a href="#advies" class="text-text-muted hover:text-primary hover:underline transition-colors">AI-scan</a></li>
+          <li><a href="#advies" class="text-text-muted hover:text-primary hover:underline transition-colors">AI-beleid samen maken</a></li>
+          <li><a href="#advies" class="text-text-muted hover:text-primary hover:underline transition-colors">Implementatiebegeleiding</a></li>
+          <li><a href="#advies" class="text-text-muted hover:text-primary hover:underline transition-colors">Maatwerk</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="border-t border-border pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+      <p class="text-text-muted text-sm">
+        &copy; 2026 Artiplent VOF &nbsp;&middot;&nbsp; KvK: 90216342 &nbsp;&middot;&nbsp;
+        <a href="mailto:artiplent@proton.me" class="hover:text-primary hover:underline transition-colors">artiplent@proton.me</a>
+      </p>
+    </div>
+
+  </div>
+</footer>
+
+<!-- ════════════════════════════════════════════
+     SCRIPTS
+════════════════════════════════════════════ -->
+<script>
+  // ── Mobile menu toggle ──────────────────────
+  const toggle   = document.getElementById('menu-toggle');
+  const menu     = document.getElementById('mobile-menu');
+  const iconOpen  = document.getElementById('icon-open');
+  const iconClose = document.getElementById('icon-close');
+
+  toggle.addEventListener('click', () => {
+    const isOpen = !menu.classList.contains('hidden');
+    menu.classList.toggle('hidden');
+    iconOpen.classList.toggle('hidden', !isOpen ? false : true);
+    iconClose.classList.toggle('hidden', !isOpen ? true : false);
+  });
+
+  menu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      menu.classList.add('hidden');
+      iconOpen.classList.remove('hidden');
+      iconClose.classList.add('hidden');
+    });
+  });
+
+  // ── Scroll animations via IntersectionObserver ──
+  const animated = document.querySelectorAll('.fade-up, .scale-in, .slide-left');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.1 });
+
+  animated.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
