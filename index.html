@@ -273,13 +273,14 @@
     }
     .samen-tekst p { font-size: 15px; opacity: 0.8; font-weight: 300; max-width: 460px; line-height: 1.7; }
     .samen-foto {
-      width: 148px; height: 148px; border-radius: 14px; flex-shrink: 0;
+      width: 200px; height: 200px; border-radius: 14px; flex-shrink: 0;
       overflow: hidden;
       background: rgba(255,255,255,0.1);
-      border: 2px dashed rgba(255,255,255,0.3);
+      border: 3px solid rgba(255,255,255,0.2);
       display: flex; align-items: center; justify-content: center;
       font-size: 12px; color: rgba(255,255,255,0.5);
       text-align: center; padding: 12px; font-style: italic;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
     }
     .samen-foto img { width: 100%; height: 100%; object-fit: cover; }
 
@@ -549,6 +550,16 @@
 
     <div class="over-grid">
       <div class="persoon-card reveal">
+        <div class="foto-ring louis" id="foto-louis">
+          <img src="images/louis.jpg" alt="Louis Collins"
+               onerror="this.style.display='none'; document.getElementById('init-louis').style.display='flex';" />
+          <span class="foto-initials" id="init-louis" style="display:none">LC</span>
+        </div>
+        <div class="persoon-naam">Louis Collins MSc</div>
+        <div class="persoon-titel">AI &amp; Data Science &amp; Trainer</div>
+        <p class="persoon-bio">Louis is gespecialiseerd in artificial intelligence en data science. Vanuit die technische basis ontwikkelt hij trainingen en advies, en geeft hij deze ook zelf. Zijn diepgaande kennis maakt Artiplent-trainingen inhoudelijk sterk en altijd up-to-date.</p>
+      </div>
+      <div class="persoon-card reveal">
         <div class="foto-ring" id="foto-raoul">
           <img src="images/raoul.jpg" alt="Raoul Ganga"
                onerror="this.style.display='none'; document.getElementById('init-raoul').style.display='flex';" />
@@ -557,16 +568,6 @@
         <div class="persoon-naam">Raoul Ganga MSc</div>
         <div class="persoon-titel">Projectmanager &amp; Trainer</div>
         <p class="persoon-bio">Raoul communiceert op verschillende niveaus — van jongeren in het praktijkonderwijs tot directies en beleidsmakers. Zijn achtergrond in sociaal werk en projectmanagement zorgt dat kennis altijd echt landt bij de mensen die ermee werken.</p>
-      </div>
-      <div class="persoon-card reveal">
-        <div class="foto-ring louis" id="foto-louis">
-          <img src="images/louis.jpg" alt="Louis Collins"
-               onerror="this.style.display='none'; document.getElementById('init-louis').style.display='flex';" />
-          <span class="foto-initials" id="init-louis" style="display:none">LC</span>
-        </div>
-        <div class="persoon-naam">Louis Collins MSc</div>
-        <div class="persoon-titel">Trainer, AI &amp; Data Science</div>
-        <p class="persoon-bio">Louis is gespecialiseerd in artificial intelligence en data science. Hij ontwikkelt trainingen en advies, en treedt ook zelf op als trainer. Zijn technische diepgang maakt Artiplent-trainingen inhoudelijk sterk en altijd up-to-date.</p>
       </div>
     </div>
 
@@ -626,8 +627,6 @@
         <p class="training-tekst">Een intensieve tweedaagse training over online veiligheid, babbeltrucs, fraude, nepnieuws, privacy en AI. Dag 1 draait om bewustwording, dag 2 om gedrag en vaardigheden.</p>
         <div class="training-tags">
           <span class="tag">Jongeren niveau 1–4</span>
-          <span class="tag">MDT</span>
-          <span class="tag">Scholen</span>
         </div>
       </div>
 
@@ -635,7 +634,7 @@
         <div class="training-nr">02</div>
         <div class="training-naam">AI Vaardig Worden</div>
         <div class="training-duur">Halve dag · 3 uur</div>
-        <p class="training-tekst">Praktische training over AI-tools zoals ChatGPT. Wat zet je erin, wat niet? Hoe herken je deepfakes en AI-gegenereerde inhoud? Deelnemers testen live een AI-tool.</p>
+        <p class="training-tekst">Praktische training over AI-tools zoals ChatGPT, Gemini, Copilot en Claude. Wat zet je erin, wat niet? Hoe herken je deepfakes en AI-gegenereerde inhoud? Deelnemers testen live een AI-tool.</p>
         <div class="training-tags">
           <span class="tag">Jongeren</span>
           <span class="tag">Medewerkers</span>
@@ -646,7 +645,7 @@
         <div class="training-nr">03</div>
         <div class="training-naam">Digitaal Weerbaar op het Werk</div>
         <div class="training-duur">Halve dag · 3 uur</div>
-        <p class="training-tekst">Speciaal voor starters op de arbeidsmarkt. Inloggen met authenticator, phishing herkennen op de werkvloer en omgaan met digitale verantwoordelijkheden als nieuwe medewerker.</p>
+        <p class="training-tekst">Speciaal voor starters op de arbeidsmarkt. Van veilig inloggen en wachtwoordbeheer tot effectief werken met digitale middelen. Deelnemers leren de digitale tools van de werkvloer kennen en gebruiken.</p>
         <div class="training-tags">
           <span class="tag">Starters</span>
           <span class="tag">MBO / HBO</span>
